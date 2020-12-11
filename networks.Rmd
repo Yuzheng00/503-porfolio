@@ -1,0 +1,80 @@
+---
+title: "A7"
+author: "Yuzheng Xie"
+date: "11/7/2020"
+output: html_document
+---
+
+```{r}
+library(networkD3)
+library(htmlwidgets)
+library(htmltools)
+library(tidyverse)
+```
+
+
+
+```{r}
+migrations=readxl::read_xls('State_to_State_Migrations_Table_2018.xls', skip=4)
+```
+
+
+
+```{r}
+migrations = migrations %>% rename('target'='Current residence in...1') %>% 
+  select(-contains('Current residence in')) %>% 
+  select(-seq(3,119,2)) %>%
+  select(-seq(2,5,1))
+```
+
+```{r}
+old_names = colnames(migrations[,2:ncol(migrations)])
+new_names = as.character(unlist(migrations[1, 2:ncol(migrations)], use.names = FALSE))
+```
+
+```{r}
+#gather data--drop na 
+migrations = migrations %>% 
+  rename_at(vars(old_names),~ new_names) %>%
+  gather(key='source', value='count' ,-target) %>%
+  filter(source!="Total") %>%
+  filter(target!='United States2')%>%
+  filter(target!='Current residence in')
+
+migrations = filter(migrations, count !='N/A')
+```
+
+```{r}
+#choose Texas,New York,Virginia,Maryland as the origin states
+migrations = migrations %>%
+           filter (source %in% c('New York','Texas','Virginia','Florida'))  %>% group_by(source) %>% top_n(10, wt=count)
+
+```
+
+
+```{r}
+#create index for sankey diagram
+nodes <- data.frame(name=c(as.character(migrations$target), as.character(migrations$source)) %>%unique())
+migrations$index_source=match(migrations$source, nodes$name)-1
+migrations$index_target=match(migrations$target, nodes$name)-1
+```
+
+
+```{r}
+#create sankey diagram 
+migrations <- as.data.frame(migrations)
+sankey<-sankeyNetwork(Links = migrations, Nodes = nodes,
+              Source = "index_source", Target = "index_target",
+              Value = "count", NodeID = "name", 
+              sinksRight=TRUE, nodeWidth=30, fontSize=12, nodePadding=1,width= 700, height=650,units = "TWh"
+              )
+
+sankey <- htmlwidgets::prependContent(sankey, htmltools::tags$h1("Top 10 Migration Destinations of NY, TX, VA and FL"))
+
+sankey
+```
+
+
+
+
+

@@ -1,0 +1,17 @@
+name: "my-website"
+navbar:
+  title: "My Website"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html
+    - text: "Project"
+      href: projectxyz.html
+    - text: "Assignment 5"
+      href: projectxyz.html
+    - text: "Assignment 6"
+      href: projectxyz.html
+    - text: "Assignment 7"
+      href: networks.html
+      
