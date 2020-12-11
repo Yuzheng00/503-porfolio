@@ -8,10 +8,12 @@ navbar:
       href: about.html
     - text: "Project"
       href: projectxyz.html
-    - text: "Assignment 5"
-      href: projectxyz.html
-    - text: "Assignment 6"
-      href: projectxyz.html
-    - text: "Assignment 7"
-      href: networks.html
+    - text: "Assignment5"
+      href: A5.html
+    - text: "Assignment6"
+      href: A6.html
+    - text: "Assignment7"
+      href: A7.html
+
+
       
