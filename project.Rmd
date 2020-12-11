@@ -3,7 +3,7 @@ title: "Project"
 ---
 
 The project aims to explore the relationship between the COVID-19 and the US airline traffic<br>
-[project](projectxyz.html)
+[project](projectxyz.html)<br>
 The main components:<br>
 1.EDA exploring the statistical and distribution of the data<br>
 2.Map showing the the geographical information<br>

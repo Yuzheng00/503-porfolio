@@ -2,8 +2,10 @@
 title: "Welcome to My Website"
 ---
 
-I am Yuzheng Xie and this is my ANLY-503 portfolio
+Hi, welcome to my website!<br>
+I am Yuzheng Xie and this is my ANLY-503 portfolio.<br>
 
-[Project]
+
+
 
 
